@@ -56,7 +56,8 @@ canvas{width:100%;max-width:360px;display:block;margin:6px auto}
     <div class="rw"><label>型号</label><select id="cell" onchange="onCell()"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
     <div class="rw"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="u">mAh</span></div>
     <div class="rw"><label>正极</label><select id="pMat" onchange="loadMat()"><option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
-    <div class="rw"><label>负极</label><select id="nMat" onchange="loadMat()"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
+    <div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
+    <button onclick="loadMat()" style="width:100%;margin-top:6px;padding:8px;background:#E8F0FE;color:#007AFF;border:1.5px solid #007AFF;border-radius:8px;font-size:13px;font-weight:600">🔄 加载材料参数</button>
   </div>
   <div class="c">
     <h3>正极参数</h3>
