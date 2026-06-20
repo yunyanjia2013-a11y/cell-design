@@ -272,16 +272,19 @@ function drawV(){
   document.getElementById('vl').textContent=R.coreFit?`裕量 ${R.margin.toFixed(2)}mm`:`SOC100%膨胀后超限!`;
 }
 
-loadMat();onCell();
-// Bind events via JS (bypass cached inline handlers)
-document.getElementById('nMat').addEventListener('change',loadMat);
-document.getElementById('pMat').addEventListener('change',loadMat);
-document.getElementById('pbOn').addEventListener('change',loadMat);
-document.getElementById('pbMat').addEventListener('change',loadMat);
-document.getElementById('pbR').addEventListener('input',loadMat);
-document.getElementById('nbOn').addEventListener('change',loadMat);
-document.getElementById('nbMat').addEventListener('change',loadMat);
-document.getElementById('nbR').addEventListener('input',loadMat);
+function bindAll(){
+  var ids=['pMat','nMat','pbOn','pbMat','pbR','nbOn','nbMat','nbR','cell'];
+  for(var i=0;i<ids.length;i++){
+    var el=document.getElementById(ids[i]);
+    if(el){
+      el.addEventListener('change',loadMat);
+      el.addEventListener('input',loadMat);
+    }
+  }
+  loadMat();onCell();
+}
+document.addEventListener('DOMContentLoaded',bindAll);
+setTimeout(bindAll,500);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
 </body>
