@@ -3,346 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
-<!-- iOS Native App -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="电芯设计">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
-<meta name="format-detection" content="telephone=no">
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#007AFF">
-<title>电芯设计</title>
+<title>电芯设计 · 移动版</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F2F2F7;color:#1C1C1E;padding-bottom:env(safe-area-inset-bottom)}
-.header{background:#fff;padding:12px 16px;text-align:center;border-bottom:1px solid #E5E5EA;position:sticky;top:0;z-index:10}
-.header h1{font-size:17px;font-weight:700;color:#007AFF}
-.header p{font-size:11px;color:#8E8E93;margin-top:2px}
+.h{background:#fff;padding:10px 14px;text-align:center;border-bottom:1px solid #E5E5EA;position:sticky;top:0;z-index:10}
+.h h1{font-size:17px;font-weight:700;color:#007AFF}.h p{font-size:11px;color:#8E8E93}
 .nav{display:flex;background:#fff;border-bottom:1px solid #E5E5EA;position:sticky;top:57px;z-index:9}
-.nav button{flex:1;padding:10px 0;border:0;background:none;font-size:13px;color:#8E8E93;border-bottom:2px solid transparent;transition:all .2s}
-.nav button.active{color:#007AFF;border-bottom-color:#007AFF;font-weight:600}
-.page{display:none;padding:12px}
-.page.active{display:block}
-
-.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px}
-.card h3{font-size:14px;color:#007AFF;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #F2F2F7}
-.row{display:flex;align-items:center;margin-bottom:6px;gap:8px}
-.row label{font-size:12px;color:#8E8E93;min-width:70px;text-align:right}
-.row input,.row select{flex:1;padding:8px 10px;border:1px solid #E5E5EA;border-radius:8px;font-size:13px;background:#F9F9F9;color:#1C1C1E}
-.row input:focus,.row select:focus{outline:0;border-color:#007AFF}
-.row .unit{font-size:11px;color:#8E8E93;min-width:35px}
-.row .half{flex:1}
-.btn{padding:12px 24px;border:0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-primary{background:#007AFF;color:#fff;width:100%}
-.btn-primary:active{background:#0056CC}
-.btn-danger{background:#FF3B30;color:#fff}
-.btn-outline{background:#fff;color:#007AFF;border:1.5px solid #007AFF}
-
-table{width:100%;border-collapse:collapse;font-size:12px}
-table tr{border-bottom:1px solid #F2F2F7}
-table td{padding:6px 4px;vertical-align:top}
-table td:first-child{color:#8E8E93;width:40%}
-table td:last-child{text-align:right;font-weight:500;min-width:60px}
-.section td{font-size:13px;font-weight:700;color:#007AFF;padding:8px 4px 4px}
-.alert{padding:10px;border-radius:8px;font-size:12px;margin:8px 0}
-.alert-success{background:#E8F5E9;color:#2E7D32}
-.alert-danger{background:#FFEBEE;color:#C62828}
-
-.blend-row{display:flex;align-items:center;gap:6px;margin:4px 0;padding:6px 8px;background:#FFF3E0;border-radius:8px;font-size:11px}
-.blend-row select,.blend-row input{flex:1;padding:6px;border:1px solid #E5E5EA;border-radius:6px;font-size:11px;background:#fff}
-.chk-row{display:flex;align-items:center;gap:6px;font-size:12px;margin:4px 0}
-.chk-row input[type=checkbox]{width:18px;height:18px}
-
-.result-key{font-size:18px;font-weight:700;color:#007AFF;text-align:center;padding:12px 0}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.result-item{background:#F9F9F9;border-radius:8px;padding:10px;text-align:center}
-.result-item .val{font-size:18px;font-weight:700;color:#1C1C1E}
-.result-item .lbl{font-size:10px;color:#8E8E93;margin-top:2px}
-
-canvas{width:100%;max-width:360px;display:block;margin:8px auto}
+.nav b{flex:1;padding:10px 0;border:0;background:none;font-size:13px;color:#8E8E93;border-bottom:2px solid transparent}
+.nav b.on{color:#007AFF;border-bottom-color:#007AFF;font-weight:600}
+.pg{display:none;padding:10px}.pg.on{display:block}
+.c{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px}
+.c h3{font-size:14px;color:#007AFF;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #F2F2F7}
+.rw{display:flex;align-items:center;margin-bottom:4px;gap:6px}
+.rw label{font-size:11px;color:#8E8E93;min-width:66px;text-align:right}
+.rw input,.rw select{flex:1;padding:7px 8px;border:1px solid #E5E5EA;border-radius:8px;font-size:13px;background:#F9F9F9;color:#1C1C1E}
+.rw .u{font-size:10px;color:#8E8E93;min-width:30px}
+.btn{padding:12px;border:0;border-radius:10px;font-size:14px;font-weight:600;width:100%;background:#007AFF;color:#fff;cursor:pointer}
+.btn:active{background:#0056CC}
+.chk{display:flex;align-items:center;gap:4px;font-size:11px;margin:3px 0;padding:4px 6px;background:#FFF3E0;border-radius:6px}
+.chk input[type=checkbox]{width:16px;height:16px}
+.chk select,.chk input{flex:1;padding:5px;border:1px solid #E5E5EA;border-radius:6px;font-size:11px;background:#fff}
+.res-big{font-size:20px;font-weight:700;color:#007AFF;text-align:center;padding:10px}
+.res-g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ri{background:#F9F9F9;border-radius:8px;padding:8px;text-align:center}
+.ri .v{font-size:17px;font-weight:700;color:#1C1C1E}.ri .l{font-size:10px;color:#8E8E93}
+table{width:100%;border-collapse:collapse;font-size:11px}
+table td{padding:5px 3px;border-bottom:1px solid #F2F2F7}
+table td:first-child{color:#8E8E93;width:38%}
+table td:last-child{text-align:right;font-weight:500}
+.s{font-size:12px;font-weight:700;color:#007AFF}.s td{padding:7px 3px 3px}
+.ok{background:#E8F5E9;color:#2E7D32;padding:8px;border-radius:8px;font-size:12px;margin:6px 0;text-align:center}
+.ng{background:#FFEBEE;color:#C62828;padding:8px;border-radius:8px;font-size:12px;margin:6px 0;text-align:center}
+canvas{width:100%;max-width:360px;display:block;margin:6px auto}
 </style>
 </head>
 <body>
-<div class="header"><h1>🔋 电芯设计</h1><p>18650 · 21700 · 4680 · 移动版</p></div>
-<div class="nav">
-  <button class="active" onclick="showTab('design')">参数</button>
-  <button onclick="showTab('result')">结果</button>
-  <button onclick="showTab('visual')">可视</button>
-</div>
+<div class="h"><h1>🔋 电芯设计</h1><p>18650·21700·4680·33140  — 移动版</p></div>
+<div class="nav"><b class="on" onclick="T('d')">参数</b><b onclick="T('r')">结果</b><b onclick="T('v')">可视</b></div>
 
-<div id="design" class="page active">
-  <div class="card">
+<div id="d" class="pg on">
+  <div class="c">
     <h3>电芯规格</h3>
-    <div class="row"><label>型号</label><select id="cellType"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
-    <div class="row"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="unit">mAh</span></div>
-    <div class="row"><label>正极材料</label><select id="posMat" onchange="loadMat()">
-      <option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
-    <div class="row"><label>负极材料</label><select id="negMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si (96.5/3.5)</option><option>硅碳 (SiC)</option><option>硅氧 (SiOx)</option></select></div>
+    <div class="rw"><label>型号</label><select id="cell" onchange="onCell()"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
+    <div class="rw"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="u">mAh</span></div>
+    <div class="rw"><label>正极</label><select id="pMat" onchange="loadMat()"><option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
+    <div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
   </div>
-  <div class="card">
+  <div class="c">
     <h3>正极参数</h3>
-    <div class="row"><label>克容量</label><input id="posRevCap" type="number" value="182" step="1"><span class="unit">mAh/g</span></div>
-    <div class="row"><label>活物占比</label><input id="posActF" type="number" value="0.95" step="0.01"></div>
-    <div class="row"><label>面密度</label><input id="posAD" type="number" value="20" step="0.5"><span class="unit">mg/cm²</span></div>
-    <div class="row"><label>压实密度</label><input id="posPD" type="number" value="3.45" step="0.01"><span class="unit">g/cm³</span></div>
-    <div class="row"><label>Al箔厚</label><input id="posFoil" type="number" value="15"><span class="unit">µm</span></div>
-    <div class="row"><label>宽度</label><input id="posWidth" type="number" value="57"><span class="unit">mm</span></div>
+    <div class="rw"><label>克容量</label><input id="pCap" type="number" value="182"><span class="u">mAh/g</span></div>
+    <div class="rw"><label>活物占比</label><input id="pAf" type="number" value="0.95" step="0.01"></div>
+    <div class="rw"><label>面密度</label><input id="pAd" type="number" value="20"><span class="u">mg/cm²</span></div>
+    <div class="rw"><label>压实密度</label><input id="pPd" type="number" value="3.45" step="0.01"><span class="u">g/cm³</span></div>
+    <div class="rw"><label>Al箔厚</label><input id="pFoil" type="number" value="15"><span class="u">µm</span></div>
+    <div class="rw"><label>宽度</label><input id="pW" type="number" value="57"><span class="u">mm</span></div>
+    <div class="rw"><label>膨胀率</label><input id="pExp" type="number" value="0" step="0.001"></div>
   </div>
-  <div class="card">
+  <div class="c">
     <h3>负极参数</h3>
-    <div class="row"><label>克容量</label><input id="negRevCap" type="number" value="350" step="1"><span class="unit">mAh/g</span></div>
-    <div class="row"><label>活物占比</label><input id="negActF" type="number" value="0.95" step="0.01"></div>
-    <div class="row"><label>面密度</label><input id="negAD" type="number" value="11" step="0.5"><span class="unit">mg/cm²</span></div>
-    <div class="row"><label>压实密度</label><input id="negPD" type="number" value="1.65" step="0.01"><span class="unit">g/cm³</span></div>
-    <div class="row"><label>Cu箔厚</label><input id="negFoil" type="number" value="8"><span class="unit">µm</span></div>
-    <div class="row"><label>宽余量</label><input id="negWExtra" type="number" value="2" step="0.5"><span class="unit">mm</span></div>
+    <div class="rw"><label>克容量</label><input id="nCap" type="number" value="350"><span class="u">mAh/g</span></div>
+    <div class="rw"><label>活物占比</label><input id="nAf" type="number" value="0.95" step="0.01"></div>
+    <div class="rw"><label>面密度</label><input id="nAd" type="number" value="11"><span class="u">mg/cm²</span></div>
+    <div class="rw"><label>压实密度</label><input id="nPd" type="number" value="1.65" step="0.01"><span class="u">g/cm³</span></div>
+    <div class="rw"><label>Cu箔厚</label><input id="nFoil" type="number" value="8"><span class="u">µm</span></div>
+    <div class="rw"><label>宽余量</label><input id="nWE" type="number" value="2"><span class="u">mm</span></div>
+    <div class="rw"><label>膨胀率</label><input id="nExp" type="number" value="0.01" step="0.001"></div>
   </div>
-  <div class="card">
+  <div class="c">
     <h3>隔膜·卷绕·电解液</h3>
-    <div class="row"><label>隔膜厚</label><input id="sepT" type="number" value="16"><span class="unit">µm</span></div>
-    <div class="row"><label>卷针直径</label><input id="mandrel" type="number" value="3.2" step="0.1"><span class="unit">mm</span></div>
-    <div class="row"><label>N/P目标</label><input id="npTarget" type="number" value="1.10" step="0.01"></div>
-    <div class="row"><label>注液系数</label><input id="elyteF" type="number" value="1.20" step="0.01"><span class="unit">×</span></div>
+    <div class="rw"><label>隔膜厚</label><input id="sT" type="number" value="16"><span class="u">µm</span></div>
+    <div class="rw"><label>隔膜孔隙率</label><input id="sPor" type="number" value="0.49" step="0.01"></div>
+    <div class="rw"><label>卷针</label><input id="md" type="number" value="3.2"><span class="u">mm</span></div>
+    <div class="rw"><label>电解液密度</label><input id="eD" type="number" value="1.22"><span class="u">g/cm³</span></div>
+    <div class="rw"><label>注液系数</label><input id="eF" type="number" value="1.20" step="0.01"><span class="u">×</span></div>
+    <div class="rw"><label>N/P目标</label><input id="npT" type="number" value="1.10" step="0.01"></div>
   </div>
-  <div class="card">
-    <h3>正极掺杂 <span style="font-size:10px;color:#FF9500">(可选)</span></h3>
-    <div class="chk-row"><input type="checkbox" id="posBlendOn"> <span>启用</span><select id="posBlendMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option><option>LFP</option></select><input id="posBlendR" type="number" value="80" min="0" max="100" style="width:50px"><span>%主材</span></div>
-    <div class="chk-row"><input type="checkbox" id="negBlendOn"> <span>负极掺杂</span><select id="negBlendMat"><option>硅碳 (SiC)</option><option>硅氧 (SiOx)</option><option>石墨+Si (96.5/3.5)</option></select><input id="negBlendR" type="number" value="95" min="0" max="100" style="width:50px"><span>%主材</span></div>
+  <div class="c">
+    <h3>掺杂混合 (可选)</h3>
+    <div class="chk"><input type="checkbox" id="pbOn"><span>正极掺杂</span><select id="pbMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" min="0" max="100" style="width:45px"><span>%主材</span></div>
+    <div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" min="0" max="100" style="width:45px"><span>%主材</span></div>
   </div>
-  <button class="btn btn-primary" onclick="calc()">⚡ 开始计算</button>
-  <div style="height:20px"></div>
+  <button class="btn" onclick="calc()">⚡ 开始计算</button>
 </div>
 
-<div id="result" class="page">
-  <div id="resultContent"><p style="text-align:center;color:#8E8E93;padding:40px">← 输入参数后点击计算</p></div>
-</div>
-
-<div id="visual" class="page">
-  <canvas id="viz" width="360" height="400"></canvas>
-  <p id="vizLabel" style="text-align:center;color:#8E8E93;font-size:12px">计算后显示电池截面图</p>
-</div>
+<div id="r" class="pg"><div id="rc"><p style="text-align:center;color:#8E8E93;padding:40px">← 输入参数后点击计算</p></div></div>
+<div id="v" class="pg"><canvas id="cv" width="360" height="400"></canvas><p id="vl" style="text-align:center;color:#8E8E93;font-size:12px">计算后显示</p></div>
 
 <script>
-// ═══════════ MATERIAL DATABASE ═══════════
-const POS_MAT = {
-  NCM811:{cap:182,chg:191.6,eff:0.95,td:4.65,af:0.95,pd:3.45,ad:[16,20],v:3.65},
-  NCA:{cap:200,chg:208.7,eff:0.92,td:4.65,af:0.95,pd:3.59,ad:[16,20],v:3.65},
-  NCM622:{cap:180,chg:189.5,eff:0.95,td:4.65,af:0.94,pd:3.5,ad:[17,21],v:3.65},
-  NCM523:{cap:160,chg:168.4,eff:0.95,td:4.65,af:0.94,pd:3.5,ad:[18,22],v:3.60},
-  LFP:{cap:140,chg:147.4,eff:0.95,td:3.65,af:0.93,pd:3.3,ad:[20,24],v:3.20},
-  LMFP:{cap:150,chg:157.9,eff:0.95,td:3.5,af:0.93,pd:2.6,ad:[18,22],v:3.55},
-  LCO:{cap:150,chg:157.9,eff:0.95,td:5.05,af:0.95,pd:3.9,ad:[19,23],v:3.80}
+const PM={
+  NCM811:{cap:182,af:0.95,pd:3.45,ad:[16,20]},
+  NCA:{cap:200,af:0.95,pd:3.59,ad:[16,20]},
+  NCM622:{cap:180,af:0.94,pd:3.5,ad:[17,21]},
+  NCM523:{cap:160,af:0.94,pd:3.5,ad:[18,22]},
+  LFP:{cap:140,af:0.93,pd:3.3,ad:[20,24]},
+  LMFP:{cap:150,af:0.93,pd:2.6,ad:[18,22]},
+  LCO:{cap:150,af:0.95,pd:3.9,ad:[19,23]}
 };
-const NEG_MAT = {
-  "天然石墨":{cap:350,chg:380.4,eff:0.92,td:2.2,af:0.95,pd:1.6,ad:[10,13],exp:0},
-  "人造石墨":{cap:320,chg:347.8,eff:0.92,td:2.2,af:0.95,pd:1.6,ad:[10,12],exp:0},
-  "石墨+Si (96.5/3.5)":{cap:399.9,chg:444.3,eff:0.90,td:2.2,af:0.95,pd:1.494,ad:[10,12],exp:0.008},
-  "硅碳 (SiC)":{cap:450,chg:500,eff:0.87,td:2.3,af:0.92,pd:1.55,ad:[8,10],exp:0.02},
-  "硅氧 (SiOx)":{cap:450,chg:529.4,eff:0.85,td:2.2,af:0.90,pd:1.5,ad:[8,10],exp:0.015}
+const NM={
+  "天然石墨":{cap:350,af:0.95,pd:1.6,ad:[10,13],exp:0},
+  "人造石墨":{cap:320,af:0.95,pd:1.6,ad:[10,12],exp:0},
+  "石墨+Si(96.5/3.5)":{cap:400,af:0.95,pd:1.494,ad:[10,12],exp:0.008},
+  "硅碳(SiC)":{cap:450,af:0.92,pd:1.55,ad:[8,10],exp:0.02},
+  "硅氧(SiOx)":{cap:450,af:0.90,pd:1.5,ad:[8,10],exp:0.015}
 };
-const CELLS = {
+const CS={
   18650:{oD:18,H:65,iD:17.4,cmax:17.0,wr:[56,58],mr:[3.0,3.5]},
   21700:{oD:21,H:70,iD:20.4,cmax:20.0,wr:[60,62],mr:[3.5,4.0]},
   4680:{oD:46,H:80,iD:45.0,cmax:44.7,wr:[70,75],mr:[5.0,6.0]},
   33140:{oD:33,H:140,iD:32.2,cmax:31.8,wr:[125,132],mr:[5.0,6.0]}
 };
+let R=null;
 
-let currentResult = null;
-
-function blend(a,b,r){ let o={}; for(let k in a) o[k]=(typeof a[k]=='number')?a[k]*r+b[k]*(1-r):a[k]; return o; }
-
-function showTab(t){
-  document.querySelectorAll('.nav button').forEach((b,i)=>{
-    b.classList.toggle('active',b.textContent.trim()==(t=='design'?'参数':t=='result'?'结果':'可视'));
-  });
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(t).classList.add('active');
-  if(t=='visual'&&currentResult) drawViz();
+function V(id){return parseFloat(document.getElementById(id).value)||0}
+function T(t){
+  document.querySelectorAll('.nav b').forEach((b,i)=>b.classList.toggle('on',(t=='d'&&i==0)||(t=='r'&&i==1)||(t=='v'&&i==2)));
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById(t).classList.add('on');
+  if(t=='v'&&R) drawV();
 }
-
 function loadMat(){
-  let pm=POS_MAT[document.getElementById('posMat').value];
-  if(pm){document.getElementById('posRevCap').value=pm.cap;document.getElementById('posActF').value=pm.af;document.getElementById('posAD').value=(pm.ad[0]+pm.ad[1])/2;document.getElementById('posPD').value=pm.pd;}
-  let nm=NEG_MAT[document.getElementById('negMat').value];
-  if(nm){document.getElementById('negRevCap').value=nm.cap;document.getElementById('negActF').value=nm.af;document.getElementById('negAD').value=(nm.ad[0]+nm.ad[1])/2;document.getElementById('negPD').value=nm.pd;}
+  let p=PM[document.getElementById('pMat').value];
+  if(p){document.getElementById('pCap').value=p.cap;document.getElementById('pAf').value=p.af;document.getElementById('pAd').value=(p.ad[0]+p.ad[1])/2;document.getElementById('pPd').value=p.pd;}
+  let n=NM[document.getElementById('nMat').value];
+  if(n){document.getElementById('nCap').value=n.cap;document.getElementById('nAf').value=n.af;document.getElementById('nAd').value=(n.ad[0]+n.ad[1])/2;document.getElementById('nPd').value=n.pd;document.getElementById('nExp').value=n.exp;}
 }
+function onCell(){
+  let s=CS[document.getElementById('cell').value];
+  document.getElementById('pW').value=(s.wr[0]+s.wr[1])/2;
+  document.getElementById('md').value=(s.mr[0]+s.mr[1])/2;
+}
+function blend(a,b,r){let o={};for(let k in a)o[k]=(typeof a[k]=='number')?a[k]*r+b[k]*(1-r):a[k];return o}
 
-function g(id){return parseFloat(document.getElementById(id).value)||0}
 function calc(){
-  let ct=document.getElementById('cellType').value;
-  let cs=CELLS[ct];
-  let cap=g('cap');
-
+  let ct=document.getElementById('cell').value,cs=CS[ct];
+  let cap=V('cap');
   // Positive
-  let pCap=g('posRevCap'),pAF=g('posActF'),pAD=g('posAD'),pPD=g('posPD'),pFoil=g('posFoil'),pW=g('posWidth');
-  if(document.getElementById('posBlendOn').checked){
-    let pm=POS_MAT[document.getElementById('posMat').value];
-    let bm=POS_MAT[document.getElementById('posBlendMat').value];
-    let r=g('posBlendR')/100;
-    let b=blend(pm,bm,r);pCap=b.cap;pAF=b.af;pAD=(b.ad[0]+b.ad[1])/2;pPD=b.pd;
-  }
-  let posTrueD=1/(pAF/4.65+0.02/2.05+0.03/1.77);
-  let posPor=1-pPD/posTrueD;
-  let posSC=2*pAD*pAF*pCap/1000;
-  let posArea=cap*1000/(2*pAD*pAF*pCap);
-  let posLen=posArea/(pW/10)*10;
-  let posCoatW=posArea*2*pAD/1000;
-  let posActiveW=posCoatW*pAF;
-  let posFoilW=posArea*2*(pFoil/10000)*2.73;
-  let posTotalW=posCoatW+posFoilW;
-  let posCoatV=posCoatW/posTrueD;
-  let posPoreV=posCoatV*posPor;
-  let posCoatT=pAD*10/pPD;
-  let posTotalT=2*posCoatT+pFoil;
+  let pCap=V('pCap'),pAf=V('pAf'),pAd=V('pAd'),pPd=V('pPd'),pFoil=V('pFoil'),pW=V('pW'),pExp=V('pExp');
+  if(document.getElementById('pbOn').checked){let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value],r=V('pbR')/100;let b=blend(pm,bm,r);pCap=b.cap;pAf=b.af;pAd=(b.ad[0]+b.ad[1])/2;pPd=b.pd;}
+  let posTrueD=1/(pAf/4.65+0.02/2.05+0.03/1.77);
+  let posPor=1-pPd/posTrueD,posSC=2*pAd*pAf*pCap/1000,posArea=cap*1000/(2*pAd*pAf*pCap),posLen=posArea/(pW/10)*10;
+  let posCoatW=posArea*2*pAd/1000,posActiveW=posCoatW*pAf;
+  let posFoilW=posArea*2*(pFoil*0.995/10000)*2.73,posTotalW=posCoatW+posFoilW;
+  let posCoatV=posCoatW/posTrueD,posPoreV=posCoatV*posPor;
+  let posCoatT=pAd*10/pPd*1.01,posTotalT=2*posCoatT+pFoil*0.995;
 
   // Negative
-  let nCap=g('negRevCap'),nAF=g('negActF'),nAD=g('negAD'),nPD=g('negPD'),nFoil=g('negFoil'),nWExtra=g('negWExtra');
-  if(document.getElementById('negBlendOn').checked){
-    let nm=NEG_MAT[document.getElementById('negMat').value];
-    let bm=NEG_MAT[document.getElementById('negBlendMat').value];
-    let r=g('negBlendR')/100;
-    let b=blend(nm,bm,r);nCap=b.cap;nAF=b.af;nAD=(b.ad[0]+b.ad[1])/2;nPD=b.pd;
-  }
-  let negTrueD=1/(nAF/2.2+0.01/2.05+0.015/1.28+0.025/1.0);
-  let negPor=1-nPD/negTrueD;
-  let negSC=2*nAD*nAF*nCap/1000;
-  let negW=pW+nWExtra;
-  let negLen=posLen+30;
-  let negArea=negLen/10*negW/10;
-  let negCoatW=negArea*2*nAD/1000;
-  let negActiveW=negCoatW*nAF;
-  let negFoilW=negArea*2*(nFoil/10000)*8.46;
-  let negTotalW=negCoatW+negFoilW;
-  let negCoatV=negCoatW/negTrueD;
-  let negPoreV=negCoatV*negPor;
-  let negCoatT=nAD*10/nPD;
-  let negTotalT=2*negCoatT+nFoil;
-  let negCap_mAh=negActiveW*nCap;
-  let npRatio=negCap_mAh/(posActiveW*pCap);
+  let nCap=V('nCap'),nAf=V('nAf'),nAd=V('nAd'),nPd=V('nPd'),nFoil=V('nFoil'),nWE=V('nWE'),nExp=V('nExp');
+  if(document.getElementById('nbOn').checked){let nm=NM[document.getElementById('nMat').value],bm=NM[document.getElementById('nbMat').value],r=V('nbR')/100;let b=blend(nm,bm,r);nCap=b.cap;nAf=b.af;nAd=(b.ad[0]+b.ad[1])/2;nPd=b.pd;}
+  let negTrueD=1/(nAf/2.2+0.01/2.05+0.015/1.28+0.025/1.0);
+  let negPor=1-nPd/negTrueD,negSC=2*nAd*nAf*nCap/1000,negW=pW+nWE,negLen=posLen+30;
+  let negArea=negLen/10*negW/10,negCoatW=negArea*2*nAd/1000,negActiveW=negCoatW*nAf;
+  let negFoilW=negArea*2*(nFoil/10000)*8.46,negTotalW=negCoatW+negFoilW;
+  let negCoatV=negCoatW/negTrueD,negPoreV=negCoatV*negPor;
+  let negCoatT=nAd*10/nPd*1.01,negTotalT=2*negCoatT+nFoil;
+  let npRatio=(negActiveW*nCap)/(posActiveW*pCap);
 
   // Separator
-  let sepT=g('sepT'),mandrel=g('mandrel');
-  let sepWidth=negW+2;
-  let sepLen=posLen+4*Math.PI*mandrel*1.2;
-  let sepArea=sepLen/10*sepWidth/10;
-  let sepVol=sepArea*2*sepT/10000;
-  let sepPoreV=sepVol*0.49;
-  let sepWt=sepVol*1.0;
+  let sT=V('sT'),sPor=V('sPor'),md=V('md');
+  let sepW=negW+2,sepLen=posLen+4*Math.PI*md*1.2;
+  let sepArea=sepLen/10*sepW/10,sepVol=sepArea*2*sT/10000,sepPoreV=sepVol*sPor,sepWt=sepVol*1.0;
 
   // Winding
-  let unitT=posTotalT+negTotalT+2*sepT;
-  let layers=Math.floor((cs.cmax/2-mandrel/2)/(unitT/1000));
-  let coreD=mandrel+2*(unitT/1000)*layers;
-  let margin=cs.cmax-coreD;
+  let unitT=posTotalT*(1+pExp)+negTotalT*(1+nExp)+2*sT;
+  let layers=Math.floor((cs.cmax/2-md/2)/(unitT/1000)),coreD=md+2*(unitT/1000)*layers;
+  let coreD100=md+2*(unitT/1000)*layers;
 
   // Electrolyte
-  let totalPore=posPoreV+negPoreV+sepPoreV;
-  let elyteF=g('elyteF');
-  let elyteVol=totalPore*elyteF;
-  let elyteWt=elyteVol*1.22;
+  let eD=V('eD'),eF=V('eF'),totalPore=posPoreV+negPoreV+sepPoreV,elyteVol=totalPore*eF,elyteWt=elyteVol*eD;
 
   // Hardware
-  let caseArea=Math.PI*cs.oD/10*cs.H/10;
-  let caseWt=caseArea*0.20;
-  let insPos=Math.PI*(cs.iD/20)**2*0.0446;
-  let insNeg=Math.PI*(cs.iD/20)**2*0.0159;
-  let tabWt=0.1+0.15;
+  let caseArea=Math.PI*cs.oD/10*cs.H/10,caseWt=caseArea*0.20;
+  let insWt=Math.PI*(cs.iD/20)**2*(0.0446+0.0159),tabWt=0.25;
 
-  // Total
-  let coreWt=posTotalW+negTotalW+sepWt+elyteWt;
-  let totalWt=coreWt+caseWt+insPos+insNeg+tabWt;
-  let cellVol=Math.PI*(cs.oD/20)**2*cs.H/10;
-  let energyWh=cap/1000*3.65;
-  let gravED=energyWh/(totalWt/1000);
-  let volED=energyWh/cellVol*1000;
-  let coreFit=coreD<=cs.cmax;
-  let npSafe=npRatio>=1.05;
+  // Totals
+  let coreWt=posTotalW+negTotalW+sepWt+elyteWt,totalWt=coreWt+caseWt+insWt+tabWt;
+  let cellVol=Math.PI*(cs.oD/20)**2*cs.H/10,energyWh=cap/1000*3.65;
+  let gravED=energyWh/(totalWt/1000),volED=energyWh/cellVol*1000;
+  let coreFit=coreD100<=cs.cmax,npSafe=npRatio>=1.05;
 
-  currentResult={ct,cap,npRatio,posLen,negLen,posCoatT,posTotalT,negCoatT,negTotalT,unitT,layers,coreD,margin,
+  R={ct,cap,npRatio,posLen,negLen,posCoatT,posTotalT,negCoatT,negTotalT,unitT,layers,coreD,coreD100,margin:cs.cmax-coreD100,
     posPor,negPor,posArea,negArea,posActiveW,negActiveW,posCoatW,negCoatW,posFoilW,negFoilW,
-    posTotalW,negTotalW,sepWt,elyteWt,totalPore,elyteVol,caseWt,insPos,insNeg,tabWt,totalWt,
-    energyWh,cellVol,gravED,volED,coreFit,npSafe,posSC,negSC};
-
-  showResult();
-  showTab('result');
+    posTotalW,negTotalW,sepWt,elyteWt,totalPore,elyteVol,caseWt,totalWt,energyWh,cellVol,gravED,volED,coreFit,npSafe,posSC,negSC};
+  showR();T('r');
 }
 
-function showResult(){
-  let r=currentResult;
-  if(!r)return;
-  let html='';
-  html+=`<div class="result-key">${r.totalWt.toFixed(1)}g · ${r.gravED.toFixed(0)} Wh/kg</div>`;
-  html+=`<div class="result-grid">`;
-  html+=`<div class="result-item"><div class="val">${r.cap}mAh</div><div class="lbl">容量</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.npRatio.toFixed(3)}</div><div class="lbl">N/P比</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.posLen.toFixed(0)}mm</div><div class="lbl">正极长度</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.negLen.toFixed(0)}mm</div><div class="lbl">负极长度</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.layers}层</div><div class="lbl">卷绕层数</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.coreD.toFixed(2)}mm</div><div class="lbl">卷芯直径</div></div>`;
-  html+=`<div class="result-item"><div class="val">${r.volED.toFixed(0)}Wh/L</div><div class="lbl">体积能量密度</div></div>`;
-  html+=`<div class="result-item"><div class="val">${(r.posPor*100).toFixed(1)}%/${(r.negPor*100).toFixed(1)}%</div><div class="lbl">正/负孔隙率</div></div>`;
-  html+=`</div>`;
+function showR(){
+  if(!R)return;
+  let h='';
+  h+=`<div class="res-big">${R.totalWt.toFixed(1)}g  ·  ${R.gravED.toFixed(0)} Wh/kg</div>`;
+  h+=`<div class="res-g">`;
+  h+=`<div class="ri"><div class="v">${R.cap}mAh</div><div class="l">容量</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.npRatio.toFixed(3)}</div><div class="l">N/P比</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.posLen.toFixed(0)}mm</div><div class="l">正极长度</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.negLen.toFixed(0)}mm</div><div class="l">负极长度</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.layers}层</div><div class="l">卷绕层数</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.coreD.toFixed(2)}mm</div><div class="l">卷芯直径</div></div>`;
+  h+=`<div class="ri"><div class="v">${(R.posPor*100).toFixed(1)}/${(R.negPor*100).toFixed(1)}%</div><div class="l">孔隙率 正/负</div></div>`;
+  h+=`<div class="ri"><div class="v">${R.volED.toFixed(0)}Wh/L</div><div class="l">体积能量密度</div></div>`;
+  h+=`</div>`;
 
-  html+=`<div class="card"><h3>详细信息</h3><table>`;
-  let rows=[["正极","",""],["面容量",r.posSC.toFixed(4),"mAh/cm²"],["涂层厚度",r.posCoatT.toFixed(2),"µm"],["总厚度",r.posTotalT.toFixed(1),"µm"],["涂布面积",r.posArea.toFixed(1),"cm²"],["涂层质量",r.posCoatW.toFixed(2),"g"],["Al箔质量",r.posFoilW.toFixed(2),"g"],["正极总质量",r.posTotalW.toFixed(2),"g"],
-  ["负极","",""],["面容量",r.negSC.toFixed(4),"mAh/cm²"],["涂层厚度",r.negCoatT.toFixed(2),"µm"],["总厚度",r.negTotalT.toFixed(1),"µm"],["涂布面积",r.negArea.toFixed(1),"cm²"],["涂层质量",r.negCoatW.toFixed(2),"g"],["Cu箔质量",r.negFoilW.toFixed(2),"g"],["负极总质量",r.negTotalW.toFixed(2),"g"],
-  ["隔膜&卷绕","",""],["隔膜质量",r.sepWt.toFixed(2),"g"],["单元总厚",r.unitT.toFixed(1),"µm"],["卷芯直径",r.coreD.toFixed(2),"mm"],["裕量",r.margin.toFixed(3),"mm"],
-  ["电解液&汇总","",""],["总孔隙",r.totalPore.toFixed(3),"cm³"],["注液量",r.elyteVol.toFixed(2),"cm³"],["电解液质量",r.elyteWt.toFixed(2),"g"],["电芯总质量",r.totalWt.toFixed(2),"g"],["能量密度(质量)",r.gravED.toFixed(0),"Wh/kg"],["能量密度(体积)",r.volED.toFixed(0),"Wh/L"]];
-  let inSection=false;
-  for(let row of rows){
-    if(row[1]===''){html+=`<tr class="section"><td colspan="3">▸ ${row[0]}</td></tr>`;inSection=true;}
-    else html+=`<tr><td>${row[0]}</td><td>${row[1]}</td><td style="font-size:10px;color:#8E8E93">${row[2]}</td></tr>`;
-  }
-  html+=`</table></div>`;
+  h+=`<div class="c"><h3>正极</h3><table>`;
+  let R2=[["面容量",R.posSC.toFixed(4),"mAh/cm²"],["涂层厚",R.posCoatT.toFixed(1),"µm"],["总厚度",R.posTotalT.toFixed(1),"µm"],["涂布面积",R.posArea.toFixed(1),"cm²"],["活性质量",R.posActiveW.toFixed(2),"g"],["涂层质量",R.posCoatW.toFixed(2),"g"],["Al箔质量",R.posFoilW.toFixed(2),"g"],["总质量",R.posTotalW.toFixed(2),"g"]];
+  for(let r of R2)h+=`<tr><td>${r[0]}</td><td>${r[1]}</td><td style="font-size:10px;color:#8E8E93">${r[2]}</td></tr>`;
+  h+=`</table></div>`;
 
-  if(r.coreFit&&r.npSafe) html+=`<div class="alert alert-success">✅ 设计通过 — 卷芯适配壳体 | N/P安全</div>`;
-  else if(!r.coreFit) html+=`<div class="alert alert-danger">⛔ 卷芯直径${r.coreD.toFixed(2)}mm > 壳内径${CELLS[r.ct].cmax}mm — 入壳失败!</div>`;
-  else html+=`<div class="alert alert-danger">⛔ N/P比${r.npRatio.toFixed(3)} < 1.05 — 析锂风险!</div>`;
+  h+=`<div class="c"><h3>负极</h3><table>`;
+  let R3=[["面容量",R.negSC.toFixed(4),"mAh/cm²"],["涂层厚",R.negCoatT.toFixed(1),"µm"],["总厚度",R.negTotalT.toFixed(1),"µm"],["涂布面积",R.negArea.toFixed(1),"cm²"],["活性质量",R.negActiveW.toFixed(2),"g"],["涂层质量",R.negCoatW.toFixed(2),"g"],["Cu箔质量",R.negFoilW.toFixed(2),"g"],["总质量",R.negTotalW.toFixed(2),"g"]];
+  for(let r of R3)h+=`<tr><td>${r[0]}</td><td>${r[1]}</td><td style="font-size:10px;color:#8E8E93">${r[2]}</td></tr>`;
+  h+=`</table></div>`;
 
-  document.getElementById('resultContent').innerHTML=html;
+  h+=`<div class="c"><h3>隔膜·卷绕·电解液</h3><table>`;
+  h+=`<tr><td>隔膜质量</td><td>${R.sepWt.toFixed(2)}</td><td>g</td></tr>`;
+  h+=`<tr><td>单元总厚</td><td>${R.unitT.toFixed(1)}</td><td>µm</td></tr>`;
+  h+=`<tr><td>卷芯 D/D100</td><td>${R.coreD.toFixed(2)}/${R.coreD100.toFixed(2)}</td><td>mm</td></tr>`;
+  h+=`<tr><td>裕量</td><td>${R.margin.toFixed(3)}</td><td>mm</td></tr>`;
+  h+=`<tr><td>总孔隙</td><td>${R.totalPore.toFixed(3)}</td><td>cm³</td></tr>`;
+  h+=`<tr><td>注液量</td><td>${R.elyteVol.toFixed(2)}</td><td>cm³</td></tr>`;
+  h+=`<tr><td>电解液质量</td><td>${R.elyteWt.toFixed(2)}</td><td>g</td></tr>`;
+  h+=`</table></div>`;
+
+  h+=`<div class="c"><h3>汇总</h3><table>`;
+  h+=`<tr><td>壳体</td><td>${R.caseWt.toFixed(2)}</td><td>g</td></tr>`;
+  h+=`<tr><td>电芯总质量</td><td style="font-weight:700">${R.totalWt.toFixed(2)}</td><td>g</td></tr>`;
+  h+=`<tr><td>能量</td><td>${R.energyWh.toFixed(2)}</td><td>Wh</td></tr>`;
+  h+=`<tr><td>质量能量密度</td><td style="font-weight:700">${R.gravED.toFixed(0)}</td><td>Wh/kg</td></tr>`;
+  h+=`<tr><td>体积能量密度</td><td style="font-weight:700">${R.volED.toFixed(0)}</td><td>Wh/L</td></tr>`;
+  h+=`</table></div>`;
+
+  if(R.coreFit&&R.npSafe)h+=`<div class="ok">✅ 入壳成功 · N/P安全 · 裕量${R.margin.toFixed(2)}mm</div>`;
+  else if(!R.coreFit)h+=`<div class="ng">⛔ 入壳失败! D100%=${R.coreD100.toFixed(2)}mm > 壳内径${CS[R.ct].cmax}mm</div>`;
+  else h+=`<div class="ng">⛔ N/P=${R.npRatio.toFixed(3)} < 1.05 析锂风险</div>`;
+  document.getElementById('rc').innerHTML=h;
 }
 
-function drawViz(){
-  let r=currentResult;if(!r)return;
-  let cv=document.getElementById('viz'),ctx=cv.getContext('2d');
-  cv.width=360;cv.height=400;
-  let cx=180,cy=200,scale=120;
-  let shellR=scale,coreR=scale*(r.coreD/2)/(CELLS[r.ct].iD/2),mandrelR=scale*(g('mandrel')/2)/(CELLS[r.ct].iD/2);
-
-  // Shell
-  ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx-100,cy,shellR,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle='#8E8E93';ctx.font='10px sans-serif';ctx.textAlign='center';
-  ctx.fillText('钢壳',cx-100,cy-shellR-8);
-  // Core
-  ctx.strokeStyle=r.coreFit?'#34C759':'#FF3B30';ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(cx-100,cy,coreR,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle='#007AFF';ctx.fillText('卷芯',cx-100,cy-coreR-4);
-  // Mandrel
-  ctx.fillStyle='#E8F0FE';ctx.beginPath();ctx.arc(cx-100,cy,mandrelR,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#8E8E93';ctx.stroke();
-
-  // Right: result
-  ctx.fillStyle=r.coreFit?'#34C759':'#FF3B30';ctx.font='bold 15px sans-serif';
-  ctx.fillText(r.coreFit?'✅ 入壳成功':'⛔ 入壳失败',cx+90,cy-30);
-  ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.strokeRect(cx+60,cy-shellR,shellR*2-30,shellR*2);
-  let vr=r.coreFit?shellR*0.88:shellR*1.15;
-  ctx.strokeStyle=r.coreFit?'#34C759':'#FF3B30';ctx.lineWidth=r.coreFit?2:3;
+function drawV(){
+  if(!R)return;
+  let cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  cv.width=360;cv.height=400;let cx=180,cy=200,sc=120;
+  let sr=sc,cr=sc*(R.coreD/2)/(CS[R.ct].iD/2),mr=sc*(V('md')/2)/(CS[R.ct].iD/2);
+  ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx-100,cy,sr,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#8E8E93';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText('钢壳',cx-100,cy-sr-8);
+  ctx.strokeStyle=R.coreFit?'#34C759':'#FF3B30';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx-100,cy,cr,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#007AFF';ctx.fillText('卷芯',cx-100,cy-cr-4);
+  ctx.fillStyle='#E8F0FE';ctx.beginPath();ctx.arc(cx-100,cy,mr,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#8E8E93';ctx.stroke();
+  ctx.fillStyle=R.coreFit?'#34C759':'#FF3B30';ctx.font='bold 15px sans-serif';ctx.fillText(R.coreFit?'✅ 入壳成功':'⛔ 入壳失败',cx+90,cy-30);
+  ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.strokeRect(cx+60,cy-sr,sr*2-30,sr*2);
+  let vr=R.coreFit?sr*0.88:sr*1.15;ctx.strokeStyle=R.coreFit?'#34C759':'#FF3B30';ctx.lineWidth=R.coreFit?2:3;
   ctx.beginPath();ctx.arc(cx+90,cy,vr,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle='#8E8E93';ctx.font='10px sans-serif';
-  ctx.fillText(`${r.ct} | ${r.layers}层 | ${r.margin.toFixed(2)}mm`,cx,cy+shellR+20);
-  document.getElementById('vizLabel').textContent=r.coreFit?`裕量 ${r.margin.toFixed(2)}mm`:'卷芯超限!';
+  ctx.fillStyle='#8E8E93';ctx.font='10px sans-serif';ctx.fillText(`${R.ct} | ${R.layers}层 | 裕量${R.margin.toFixed(2)}mm`,cx,cy+sr+20);
+  document.getElementById('vl').textContent=R.coreFit?`裕量 ${R.margin.toFixed(2)}mm`:`SOC100%膨胀后超限!`;
 }
 
-function init(){
-  loadMat();
-  document.getElementById('cellType').addEventListener('change',function(){
-    let cs=CELLS[this.value];document.getElementById('posWidth').value=(cs.wr[0]+cs.wr[1])/2;
-    document.getElementById('mandrel').value=(cs.mr[0]+cs.mr[1])/2;
-  });
-}
-init();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+loadMat();onCell();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
