@@ -67,8 +67,9 @@ canvas{width:100%;max-width:360px;display:block;margin:6px auto}
 
 <script>
 const CS={18650:{oD:18,H:65,iD:17.4,cmax:17.0,wr:[56,58],mr:[3.0,3.5]},21700:{oD:21,H:70,iD:20.4,cmax:20.0,wr:[60,62],mr:[3.5,4.0]},4680:{oD:46,H:80,iD:45.0,cmax:44.7,wr:[70,75],mr:[5.0,6.0]},33140:{oD:33,H:140,iD:32.2,cmax:31.8,wr:[125,132],mr:[5.0,6.0]}};
-let PM={},NM={},R=null;
-fetch('material_data.json').then(r=>r.json()).then(d=>{PM=d.pos;NM=d.neg;load()});
+let PM=null,NM=null,R=null;
+fetch('material_data.json').then(r=>r.json()).then(d=>{PM=d.pos;NM=d.neg;load();console.log('materials loaded:',Object.keys(PM).length,'pos,',Object.keys(NM).length,'neg')}).catch(e=>{console.error('material load error:',e);PM={};NM={}});
+function ready(){return PM&&NM&&Object.keys(PM).length>0}
 
 function V(id){return parseFloat(document.getElementById(id).value)||0}
 function T(t){document.querySelectorAll('.nav b').forEach((b,i)=>b.classList.toggle('on',(t=='d'&&i==0)||(t=='r'&&i==1)||(t=='v'&&i==2)));document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById(t).classList.add('on');if(t=='v'&&R)draw()}
@@ -76,15 +77,27 @@ function onCell(){let s=CS[document.getElementById('cell').value];document.getEl
 function bld(a,b,r){if(!a||!b)return a;let o={};for(let k in a)o[k]=(typeof a[k]=='number')?a[k]*r+b[k]*(1-r):a[k];return o}
 
 function load(){
-  let pm=PM[document.getElementById('pMat').value],p=pm;
-  let pbOn=document.getElementById('pbOn').checked;
-  if(pbOn){let bm=PM[document.getElementById('pbMat').value];let r=V('pbR')/100;if(pm&&bm)p=bld(pm,bm,r)}
-  if(p){document.getElementById('pCap').value=Math.round(p.reversible_capacity_mAh_g*10)/10;document.getElementById('pAf').value=p.active_fraction;let ad=p.ad_density_range_mg_cm2||p.ad_range;document.getElementById('pAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('pPd').value=p.pressed_density_g_cm3||p.pd}
+  if(!ready()){setTimeout(load,300);return}
   let nm=NM[document.getElementById('nMat').value],n=nm;
   let nbOn=document.getElementById('nbOn').checked;
   if(nbOn){let bm=NM[document.getElementById('nbMat').value];let r=V('nbR')/100;if(nm&&bm)n=bld(nm,bm,r)}
   if(n){document.getElementById('nCap').value=Math.round(n.reversible_capacity_mAh_g*10)/10;document.getElementById('nAf').value=n.active_fraction;let ad=n.ad_density_range_mg_cm2||n.ad_range;document.getElementById('nAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('nPd').value=n.pressed_density_g_cm3||n.pd}
+  let pm=PM[document.getElementById('pMat').value],p=pm;
+  let pbOn=document.getElementById('pbOn').checked;
+  if(pbOn){let bm=PM[document.getElementById('pbMat').value];let r=V('pbR')/100;if(pm&&bm)p=bld(pm,bm,r)}
+  if(p){document.getElementById('pCap').value=Math.round(p.reversible_capacity_mAh_g*10)/10;document.getElementById('pAf').value=p.active_fraction;let ad=p.ad_density_range_mg_cm2||p.ad_range;document.getElementById('pAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('pPd').value=p.pressed_density_g_cm3||p.pd}
+  var btn=document.querySelector('.btn-s');if(btn){btn.textContent='✅ 参数已加载';btn.style.background='#34C759';setTimeout(function(){btn.textContent='🔄 加载材料参数';btn.style.background='#34C759'},1500)}
 }
+
+// Auto-load on any change
+document.addEventListener('DOMContentLoaded',function(){
+  ['pMat','nMat','pbMat','nbMat','pbOn','nbOn'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.addEventListener('change',load);
+  });
+  ['pbR','nbR'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.addEventListener('input',load);
+  });
+});
 
 function calc(){
   let ct=document.getElementById('cell').value,cs=CS[ct],cap=V('cap');
