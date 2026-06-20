@@ -130,7 +130,7 @@ function T(t){
   document.getElementById(t).classList.add('on');
   if(t=='v'&&R) drawV();
 }
-function loadMat(){
+function loadMat(){console.log('loadMat called');
   let p=PM[document.getElementById('pMat').value];
   if(document.getElementById('pbOn').checked){
     let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value];
@@ -273,6 +273,15 @@ function drawV(){
 }
 
 loadMat();onCell();
+// Bind events via JS (bypass cached inline handlers)
+document.getElementById('nMat').addEventListener('change',loadMat);
+document.getElementById('pMat').addEventListener('change',loadMat);
+document.getElementById('pbOn').addEventListener('change',loadMat);
+document.getElementById('pbMat').addEventListener('change',loadMat);
+document.getElementById('pbR').addEventListener('input',loadMat);
+document.getElementById('nbOn').addEventListener('change',loadMat);
+document.getElementById('nbMat').addEventListener('change',loadMat);
+document.getElementById('nbR').addEventListener('input',loadMat);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
 </body>
