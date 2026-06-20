@@ -1,149 +1,133 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="电芯设计">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007AFF">
-<title>电芯设计</title>
-<style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="电芯设计"><link rel="apple-touch-icon" href="icons/icon-192.png"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#007AFF"><title>电芯设计</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F2F2F7;color:#1C1C1E}
-.h{background:#fff;padding:10px 14px;text-align:center;border-bottom:1px solid #E5E5EA}
-.h h1{font-size:17px;color:#007AFF}.h p{font-size:11px;color:#8E8E93;margin-top:2px}
-.nav{display:flex;background:#fff;border-bottom:1px solid #E5E5EA;position:sticky;top:0;z-index:9}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F2F2F7;color:#1C1C1E;padding-bottom:20px}
+.h{background:#fff;padding:10px 14px;text-align:center;border-bottom:1px solid #E5E5EA;position:sticky;top:0;z-index:10}
+.h h1{font-size:17px;font-weight:700;color:#007AFF}
+.nav{display:flex;background:#fff;border-bottom:1px solid #E5E5EA;position:sticky;top:53px;z-index:9}
 .nav b{flex:1;padding:10px 0;border:0;background:none;font-size:13px;color:#8E8E93;border-bottom:2px solid transparent}
 .nav b.on{color:#007AFF;border-bottom-color:#007AFF;font-weight:600}
 .pg{display:none;padding:10px}.pg.on{display:block}
-.c{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px}
-.c h3{font-size:14px;color:#007AFF;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #F2F2F7}
-.rw{display:flex;align-items:center;margin-bottom:4px;gap:6px}
+.c{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.c h3{font-size:13px;color:#007AFF;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #F2F2F7}
+.rw{display:flex;align-items:center;margin-bottom:3px;gap:6px}
 .rw label{font-size:11px;color:#8E8E93;min-width:70px;text-align:right}
-.rw input,.rw select{flex:1;padding:7px 8px;border:1px solid #E5E5EA;border-radius:8px;font-size:13px;background:#F9F9F9}
-.rw .u{font-size:10px;color:#8E8E93;min-width:30px}
-.btn{width:100%;padding:12px;border:0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px}
-.btn-p{background:#007AFF;color:#fff}.btn-p:active{background:#0056CC}
-.btn-s{background:#34C759;color:#fff;font-size:13px;padding:8px}.btn-o{background:#fff;color:#007AFF;border:1.5px solid #007AFF;font-size:13px;padding:8px}
-.chk{display:flex;align-items:center;gap:4px;font-size:11px;padding:4px 6px;background:#FFF3E0;border-radius:6px;margin:4px 0}
-.chk input[type=checkbox]{width:16px;height:16px}
-.chk select,.chk input{flex:1;padding:5px;border:1px solid #E5E5EA;border-radius:6px;font-size:11px;background:#fff}
-.res-b{font-size:22px;font-weight:700;color:#007AFF;text-align:center;padding:10px}
-.res-g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rw input,.rw select{flex:1;padding:6px 8px;border:1px solid #E5E5EA;border-radius:6px;font-size:12px;background:#F9F9F9}
+.rw .u{font-size:10px;color:#8E8E93;min-width:26px}
+.btn{width:100%;padding:10px;border:0;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-p{background:#007AFF;color:#fff}.btn-s{background:#34C759;color:#fff;margin-top:4px}
+.chk{display:flex;align-items:center;gap:4px;font-size:11px;padding:3px 6px;background:#FFF3E0;border-radius:6px;margin:3px 0}
+.chk input[type=checkbox]{width:15px;height:15px}
+.chk select,.chk input{flex:1;padding:4px;border:1px solid #E5E5EA;border-radius:5px;font-size:11px;background:#fff}
+.res-b{font-size:20px;font-weight:700;color:#007AFF;text-align:center;padding:8px}
+.res-g{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .ri{background:#F9F9F9;border-radius:8px;padding:8px;text-align:center}
-.ri .v{font-size:17px;font-weight:700}.ri .l{font-size:10px;color:#8E8E93;margin-top:2px}
+.ri .v{font-size:17px;font-weight:700}.ri .l{font-size:10px;color:#8E8E93}
 .tbl{width:100%;font-size:11px;border-collapse:collapse}.tbl td{padding:4px 3px;border-bottom:1px solid #F2F2F7}
 .tbl td:first-child{color:#8E8E93;width:38%}.tbl td:last-child{text-align:right;font-weight:500}
-.ok{background:#E8F5E9;color:#2E7D32;padding:8px;border-radius:8px;font-size:12px;margin:6px 0;text-align:center}
-.ng{background:#FFEBEE;color:#C62828;padding:8px;border-radius:8px;font-size:12px;margin:6px 0;text-align:center}
-.spin{text-align:center;padding:40px;color:#8E8E93}
+.ok{background:#E8F5E9;color:#2E7D32;padding:8px;border-radius:8px;font-size:12px;text-align:center;margin:6px 0}
+.ng{background:#FFEBEE;color:#C62828;padding:8px;border-radius:8px;font-size:12px;text-align:center;margin:6px 0}
 canvas{width:100%;max-width:360px;display:block;margin:6px auto}
-</style>
-</head>
-<body>
-<div class="h"><h1>🔋 电芯设计</h1><p>18650·21700·4680·33140 — 网页版 (PC引擎)</p></div>
+</style></head><body>
+<div class="h"><h1>🔋 电芯设计</h1></div>
 <div class="nav"><b class="on" onclick="T('d')">参数</b><b onclick="T('r')">结果</b><b onclick="T('v')">可视</b></div>
-
 <div id="d" class="pg on">
-  <div class="c">
-    <h3>电芯规格</h3>
-    <div class="rw"><label>型号</label><select id="cell" onchange="onCell()"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
-    <div class="rw"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="u">mAh</span></div>
-    <div class="rw"><label>正极</label><select id="pMat"><option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
-    <div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
-    <button class="btn btn-s" onclick="loadMat()">🔄 加载材料参数</button>
-  </div>
-  <div class="c"><h3>正极</h3>
-    <div class="rw"><label>克容量</label><input id="pCap" type="number" value="182"><span class="u">mAh/g</span></div>
-    <div class="rw"><label>活物占比</label><input id="pAf" type="number" value="0.95" step="0.01"></div>
-    <div class="rw"><label>面密度</label><input id="pAd" type="number" value="20"><span class="u">mg/cm²</span></div>
-    <div class="rw"><label>压实密度</label><input id="pPd" type="number" value="3.45"><span class="u">g/cm³</span></div>
-    <div class="rw"><label>Al箔厚</label><input id="pFoil" type="number" value="15"><span class="u">µm</span></div>
-    <div class="rw"><label>宽度</label><input id="pW" type="number" value="57"><span class="u">mm</span></div>
-  </div>
-  <div class="c"><h3>负极</h3>
-    <div class="rw"><label>克容量</label><input id="nCap" type="number" value="350"><span class="u">mAh/g</span></div>
-    <div class="rw"><label>活物占比</label><input id="nAf" type="number" value="0.95" step="0.01"></div>
-    <div class="rw"><label>面密度</label><input id="nAd" type="number" value="11"><span class="u">mg/cm²</span></div>
-    <div class="rw"><label>压实密度</label><input id="nPd" type="number" value="1.65" step="0.01"><span class="u">g/cm³</span></div>
-    <div class="rw"><label>Cu箔厚</label><input id="nFoil" type="number" value="8"><span class="u">µm</span></div>
-    <div class="rw"><label>宽余量</label><input id="nWE" type="number" value="2"><span class="u">mm</span></div>
-  </div>
-  <div class="c"><h3>隔膜·电解液</h3>
-    <div class="rw"><label>隔膜厚</label><input id="sT" type="number" value="16"><span class="u">µm</span></div>
-    <div class="rw"><label>孔隙率</label><input id="sPor" type="number" value="0.49" step="0.01"></div>
-    <div class="rw"><label>卷针</label><input id="md" type="number" value="3.2"><span class="u">mm</span></div>
-    <div class="rw"><label>电解液密度</label><input id="eD" type="number" value="1.22"><span class="u">g/cm³</span></div>
-    <div class="rw"><label>注液系数</label><input id="eF" type="number" value="1.20"><span class="u">×</span></div>
-  </div>
-  <div class="c"><h3>掺杂混合</h3>
-    <div class="chk"><input type="checkbox" id="pbOn"><span>正极掺杂</span><select id="pbMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" style="width:45px"><span>%主材</span></div>
-    <div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" style="width:45px"><span>%主材</span></div>
-  </div>
-  <button class="btn btn-p" onclick="calc()">⚡ 开始计算 (PC 引擎)</button>
-  <div style="height:20px"></div>
-</div>
+<div class="c"><h3>电芯规格</h3>
+<div class="rw"><label>型号</label><select id="cell" onchange="onCell()"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
+<div class="rw"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="u">mAh</span></div>
+<div class="rw"><label>正极</label><select id="pMat"><option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
+<div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
+<button class="btn btn-s" onclick="load()">🔄 加载材料参数</button></div>
+<div class="c"><h3>正极参数</h3>
+<div class="rw"><label>克容量</label><input id="pCap" type="number" value="182"><span class="u">mAh/g</span></div>
+<div class="rw"><label>活物占比</label><input id="pAf" type="number" value="0.95" step="0.01"></div>
+<div class="rw"><label>面密度</label><input id="pAd" type="number" value="20"><span class="u">mg/cm²</span></div>
+<div class="rw"><label>压实密度</label><input id="pPd" type="number" value="3.45" step="0.01"><span class="u">g/cm³</span></div>
+<div class="rw"><label>Al箔厚</label><input id="pFoil" type="number" value="15"><span class="u">µm</span></div>
+<div class="rw"><label>宽度</label><input id="pW" type="number" value="57"><span class="u">mm</span></div></div>
+<div class="c"><h3>负极参数</h3>
+<div class="rw"><label>克容量</label><input id="nCap" type="number" value="350"><span class="u">mAh/g</span></div>
+<div class="rw"><label>活物占比</label><input id="nAf" type="number" value="0.95" step="0.01"></div>
+<div class="rw"><label>面密度</label><input id="nAd" type="number" value="11"><span class="u">mg/cm²</span></div>
+<div class="rw"><label>压实密度</label><input id="nPd" type="number" value="1.65" step="0.01"><span class="u">g/cm³</span></div>
+<div class="rw"><label>Cu箔厚</label><input id="nFoil" type="number" value="8"><span class="u">µm</span></div>
+<div class="rw"><label>宽余量</label><input id="nWE" type="number" value="2"><span class="u">mm</span></div></div>
+<div class="c"><h3>隔膜·电解液</h3>
+<div class="rw"><label>隔膜厚</label><input id="sT" type="number" value="16"><span class="u">µm</span></div>
+<div class="rw"><label>孔隙率</label><input id="sPor" type="number" value="0.49" step="0.01"></div>
+<div class="rw"><label>卷针</label><input id="md" type="number" value="3.2"><span class="u">mm</span></div>
+<div class="rw"><label>电解液密度</label><input id="eD" type="number" value="1.22"><span class="u">g/cm³</span></div>
+<div class="rw"><label>注液系数</label><input id="eF" type="number" value="1.20" step="0.01"><span class="u">×</span></div></div>
+<div class="c"><h3>掺杂</h3>
+<div class="chk"><input type="checkbox" id="pbOn"><span>正极掺杂</span><select id="pbMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" style="width:40px"><span>%</span></div>
+<div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" style="width:40px"><span>%</span></div></div>
+<button class="btn btn-p" onclick="calc()">⚡ 开始计算</button></div>
 
-<div id="r" class="pg"><div class="spin" id="spin" style="display:none">⏳ 云端计算中...</div><div id="rc"><p style="text-align:center;color:#8E8E93;padding:40px">← 输入参数后点击计算</p></div></div>
+<div id="r" class="pg"><div id="rc"><p style="text-align:center;color:#8E8E93;padding:40px">← 输入参数后点击计算</p></div></div>
 <div id="v" class="pg"><canvas id="cv" width="360" height="400"></canvas><p id="vl" style="text-align:center;color:#8E8E93;font-size:12px">计算后显示</p></div>
 
 <script>
-const CELLS={"18650":{"oD":18,"H":65,"iD":17.4,"cmax":17.0,"wr":[56,58],"mr":[3.0,3.5]},"21700":{"oD":21,"H":70,"iD":20.4,"cmax":20.0,"wr":[60,62],"mr":[3.5,4.0]},"4680":{"oD":46,"H":80,"iD":45.0,"cmax":44.7,"wr":[70,75],"mr":[5.0,6.0]},"33140":{"oD":33,"H":140,"iD":32.2,"cmax":31.8,"wr":[125,132],"mr":[5.0,6.0]}};
+const CS={18650:{oD:18,H:65,iD:17.4,cmax:17.0,wr:[56,58],mr:[3.0,3.5]},21700:{oD:21,H:70,iD:20.4,cmax:20.0,wr:[60,62],mr:[3.5,4.0]},4680:{oD:46,H:80,iD:45.0,cmax:44.7,wr:[70,75],mr:[5.0,6.0]},33140:{oD:33,H:140,iD:32.2,cmax:31.8,wr:[125,132],mr:[5.0,6.0]}};
 let PM={},NM={},R=null;
-fetch('material_data.json').then(r=>r.json()).then(d=>{PM=d.pos;NM=d.neg}).catch(()=>{});
+fetch('material_data.json').then(r=>r.json()).then(d=>{PM=d.pos;NM=d.neg;load()});
 
 function V(id){return parseFloat(document.getElementById(id).value)||0}
-function T(t){document.querySelectorAll('.nav b').forEach((b,i)=>{b.classList.toggle('on',(t=='d'&&i==0)||(t=='r'&&i==1)||(t=='v'&&i==2))});document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById(t).classList.add('on');if(t=='v'&&R)draw()}
-function onCell(){let s=CELLS[document.getElementById('cell').value];document.getElementById('pW').value=Math.round((s.wr[0]+s.wr[1])/2);document.getElementById('md').value=(s.mr[0]+s.mr[1])/2}
-function blend(a,b,r){let o={};for(let k in a)o[k]=(typeof a[k]=='number')?a[k]*r+b[k]*(1-r):a[k];return o}
+function T(t){document.querySelectorAll('.nav b').forEach((b,i)=>b.classList.toggle('on',(t=='d'&&i==0)||(t=='r'&&i==1)||(t=='v'&&i==2)));document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById(t).classList.add('on');if(t=='v'&&R)draw()}
+function onCell(){let s=CS[document.getElementById('cell').value];document.getElementById('pW').value=Math.round((s.wr[0]+s.wr[1])/2);document.getElementById('md').value=(s.mr[0]+s.mr[1])/2}
+function bld(a,b,r){if(!a||!b)return a;let o={};for(let k in a)o[k]=(typeof a[k]=='number')?a[k]*r+b[k]*(1-r):a[k];return o}
 
-function loadMat(){
-  let p=PM[document.getElementById('pMat').value];
-  if(document.getElementById('pbOn').checked){let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value];if(pm&&bm){let r=V('pbR')/100;p=blend(pm,bm,r)}}
-  if(p){document.getElementById('pCap').value=p.reversible_capacity_mAh_g;document.getElementById('pAf').value=p.active_fraction;document.getElementById('pAd').value=p.ad_density_range_mg_cm2?Math.round((p.ad_density_range_mg_cm2[0]+p.ad_density_range_mg_cm2[1])/2):(p.ad_range?Math.round((p.ad_range[0]+p.ad_range[1])/2):20);document.getElementById('pPd').value=p.pressed_density_g_cm3||p.pd}
-  let n=NM[document.getElementById('nMat').value];
-  if(document.getElementById('nbOn').checked){let nm=NM[document.getElementById('nMat').value],bm=NM[document.getElementById('nbMat').value];if(nm&&bm){let r=V('nbR')/100;n=blend(nm,bm,r)}}
-  if(n){document.getElementById('nCap').value=n.reversible_capacity_mAh_g;document.getElementById('nAf').value=n.active_fraction;document.getElementById('nAd').value=n.ad_density_range_mg_cm2?Math.round((n.ad_density_range_mg_cm2[0]+n.ad_density_range_mg_cm2[1])/2):(n.ad_range?Math.round((n.ad_range[0]+n.ad_range[1])/2):11);document.getElementById('nPd').value=n.pressed_density_g_cm3||n.pd}
+function load(){
+  let pm=PM[document.getElementById('pMat').value],p=pm;
+  let pbOn=document.getElementById('pbOn').checked;
+  if(pbOn){let bm=PM[document.getElementById('pbMat').value];let r=V('pbR')/100;if(pm&&bm)p=bld(pm,bm,r)}
+  if(p){document.getElementById('pCap').value=Math.round(p.reversible_capacity_mAh_g*10)/10;document.getElementById('pAf').value=p.active_fraction;let ad=p.ad_density_range_mg_cm2||p.ad_range;document.getElementById('pAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('pPd').value=p.pressed_density_g_cm3||p.pd}
+  let nm=NM[document.getElementById('nMat').value],n=nm;
+  let nbOn=document.getElementById('nbOn').checked;
+  if(nbOn){let bm=NM[document.getElementById('nbMat').value];let r=V('nbR')/100;if(nm&&bm)n=bld(nm,bm,r)}
+  if(n){document.getElementById('nCap').value=Math.round(n.reversible_capacity_mAh_g*10)/10;document.getElementById('nAf').value=n.active_fraction;let ad=n.ad_density_range_mg_cm2||n.ad_range;document.getElementById('nAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('nPd').value=n.pressed_density_g_cm3||n.pd}
 }
 
 function calc(){
-  document.getElementById('rc').innerHTML='';document.getElementById('spin').style.display='block';
-  let d={cell_type:document.getElementById('cell').value,target_cap:V('cap'),
-    pos_rev_cap:V('pCap'),pos_act_f:V('pAf'),pos_ad:V('pAd'),pos_pd:V('pPd'),pos_foil:V('pFoil'),pos_width:V('pW'),pos_exp:0,
-    neg_rev_cap:V('nCap'),neg_act_f:V('nAf'),neg_ad:V('nAd'),neg_pd:V('nPd'),neg_foil:V('nFoil'),neg_wextra:V('nWE'),neg_exp:0.01,
-    sep_t:V('sT'),sep_por:V('sPor'),mandrel:V('md'),elyte_d:V('eD'),elyte_f:V('eF'),np_target:1.10};
-  if(document.getElementById('pbOn').checked){let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value];if(pm&&bm){let r=V('pbR')/100,b=blend(pm,bm,r);d.pos_rev_cap=b.reversible_capacity_mAh_g;d.pos_act_f=b.active_fraction;d.pos_ad=b.ad_density_range_mg_cm2?Math.round((b.ad_density_range_mg_cm2[0]+b.ad_density_range_mg_cm2[1])/2):d.pos_ad;d.pos_pd=b.pressed_density_g_cm3||b.pd}}
-  if(document.getElementById('nbOn').checked){let nm=NM[document.getElementById('nMat').value],bm=NM[document.getElementById('nbMat').value];if(nm&&bm){let r=V('nbR')/100,b=blend(nm,bm,r);d.neg_rev_cap=b.reversible_capacity_mAh_g;d.neg_act_f=b.active_fraction;d.neg_ad=b.ad_density_range_mg_cm2?Math.round((b.ad_density_range_mg_cm2[0]+b.ad_density_range_mg_cm2[1])/2):d.neg_ad;d.neg_pd=b.pressed_density_g_cm3||b.pd}}
-  fetch('API_URL_PLACEHOLDER/calc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
-  .then(r=>r.json()).then(r=>{
-    document.getElementById('spin').style.display='none';
-    if(!r.success){document.getElementById('rc').innerHTML=`<div class="ng">${r.error}</div>`;return}
-    R=r;showR();T('r');
-  }).catch(e=>{document.getElementById('spin').style.display='none';document.getElementById('rc').innerHTML=`<div class="ng">网络错误。请确认后端已部署。<br><small>${e}</small></div>`})
+  let ct=document.getElementById('cell').value,cs=CS[ct],cap=V('cap');
+  let pCap=V('pCap'),pAf=V('pAf'),pAd=V('pAd'),pPd=V('pPd'),pFoil=V('pFoil'),pW=V('pW');
+  if(document.getElementById('pbOn').checked){let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value];if(pm&&bm){let b=bld(pm,bm,V('pbR')/100);pCap=b.reversible_capacity_mAh_g;pAf=b.active_fraction;let ad=b.ad_density_range_mg_cm2||b.ad_range;pAd=Math.round((ad[0]+ad[1])/2);pPd=b.pressed_density_g_cm3||b.pd}}
+  let nCap=V('nCap'),nAf=V('nAf'),nAd=V('nAd'),nPd=V('nPd'),nFoil=V('nFoil'),nWE=V('nWE');
+  if(document.getElementById('nbOn').checked){let nm=NM[document.getElementById('nMat').value],bm=NM[document.getElementById('nbMat').value];if(nm&&bm){let b=bld(nm,bm,V('nbR')/100);nCap=b.reversible_capacity_mAh_g;nAf=b.active_fraction;let ad=b.ad_density_range_mg_cm2||b.ad_range;nAd=Math.round((ad[0]+ad[1])/2);nPd=b.pressed_density_g_cm3||b.pd}}
+
+  let posTrueD=1/(pAf/4.65+0.02/2.05+0.03/1.77),posPor=1-pPd/posTrueD,posSC=2*pAd*pAf*pCap/1000,posArea=cap*1000/(2*pAd*pAf*pCap),posLen=posArea/(pW/10)*10;
+  let posCoatW=posArea*2*pAd/1000,posActiveW=posCoatW*pAf,posFoilW=posArea*2*(pFoil*0.995/10000)*2.73,posTotalW=posCoatW+posFoilW;
+  let posCoatV=posCoatW/posTrueD,posPoreV=posCoatV*posPor,posCoatT=pAd*10/pPd*1.01,posTotalT=2*posCoatT+pFoil*0.995,posCap=posActiveW*pCap;
+
+  let negTrueD=1/(nAf/2.2+0.01/2.05+0.015/1.28+0.025/1.0),negPor=1-nPd/negTrueD,negSC=2*nAd*nAf*nCap/1000,negW=pW+nWE,negLen=posLen+30,negArea=negLen/10*negW/10;
+  let negCoatW=negArea*2*nAd/1000,negActiveW=negCoatW*nAf,negFoilW=negArea*2*(nFoil/10000)*8.46,negTotalW=negCoatW+negFoilW;
+  let negCoatV=negCoatW/negTrueD,negPoreV=negCoatV*negPor,negCoatT=nAd*10/nPd*1.01,negTotalT=2*negCoatT+nFoil,negCap=negActiveW*nCap,np=negCap/posCap,npA=negSC/posSC;
+
+  let sT=V('sT'),sPor=V('sPor'),md=V('md'),sepW=negW+2,sepLen=posLen+4*Math.PI*md*1.2,sepArea=sepLen/10*sepW/10,sepVol=sepArea*2*sT/10000,sepPoreV=sepVol*sPor,sepWt=sepVol*1.0;
+  let unitT=posTotalT+negTotalT+2*sT,layers=Math.floor((cs.cmax/2-md/2)/(unitT/1000)),coreD=md+2*(unitT/1000)*layers,coreD100=coreD,margin=cs.cmax-coreD;
+  let eF=V('eF'),eD=V('eD'),totalPore=posPoreV+negPoreV+sepPoreV,elyteVol=totalPore*eF,elyteWt=elyteVol*eD;
+  let caseWt=Math.PI*cs.oD/10*cs.H/10*0.20,insWt=Math.PI*(cs.iD/20)**2*0.0605,tabWt=0.25;
+  let totalWt=posTotalW+negTotalW+sepWt+elyteWt+caseWt+insWt+tabWt,cellVol=Math.PI*(cs.oD/20)**2*cs.H/10,wh=cap/1000*3.65,gravED=wh/(totalWt/1000),volED=wh/cellVol*1000;
+
+  R={target_capacity_mAh:cap,actual_np_ratio:np,areal_np_ratio:npA,pos_coating_length_mm:posLen,neg_coating_length_mm:negLen,pos_coating_thickness_actual_um:posCoatT,pos_total_thickness_um:posTotalT,pos_coating_true_density_g_cm3:posTrueD.toFixed(4),pos_coating_pressed_density_g_cm3:pPd,pos_coating_porosity:(posPor*100).toFixed(1),pos_areal_capacity_mAh_cm2:posSC.toFixed(4),pos_coating_area_cm2:posArea,pos_active_weight_g:posActiveW.toFixed(2),pos_coating_weight_g:posCoatW.toFixed(2),pos_foil_weight_g:posFoilW.toFixed(2),pos_total_weight_g:posTotalW.toFixed(2),pos_capacity_mAh:posCap.toFixed(1),neg_coating_thickness_actual_um:negCoatT,neg_total_thickness_um:negTotalT,neg_width_mm:negW,neg_coating_area_cm2:negArea,neg_active_weight_g:negActiveW.toFixed(2),neg_coating_weight_g:negCoatW.toFixed(2),neg_foil_weight_g:negFoilW.toFixed(2),neg_total_weight_g:negTotalW.toFixed(2),neg_capacity_mAh:negCap.toFixed(1),neg_coating_true_density_g_cm3:negTrueD.toFixed(4),neg_coating_pressed_density_g_cm3:nPd,neg_coating_porosity:(negPor*100).toFixed(1),neg_areal_capacity_mAh_cm2:negSC.toFixed(4),separator_weight_g:sepWt.toFixed(2),total_winding_layers:layers,core_diameter_mm:coreD.toFixed(2),core_diameter_soc100_mm:coreD100.toFixed(2),diameter_margin_mm:margin.toFixed(3),unit_thickness_um:unitT.toFixed(1),total_spiral_length_mm:0,total_pore_volume_cm3:totalPore.toFixed(3),electrolyte_volume_cm3:elyteVol.toFixed(2),electrolyte_weight_g:elyteWt.toFixed(2),case_weight_g:caseWt.toFixed(2),total_cell_weight_g:totalWt.toFixed(2),cell_energy_Wh:wh.toFixed(2),gravimetric_energy_Wh_kg:gravED.toFixed(0),volumetric_energy_Wh_L:volED.toFixed(0),cell_volume_cm3:cellVol.toFixed(2),is_core_fit:margin>=0,is_np_safe:np>=1.05,warnings:[]};
+  showR();T('r');
 }
 
 function showR(){
-  if(!R)return;
   let h=`<div class="res-b">${R.total_cell_weight_g}g · ${R.gravimetric_energy_Wh_kg} Wh/kg</div><div class="res-g">`;
-  [["容量",R.target_capacity_mAh+"mAh"],["N/P比",R.actual_np_ratio.toFixed(3)],["正极长度",R.pos_coating_length_mm.toFixed(0)+"mm"],["负极长度",R.neg_coating_length_mm.toFixed(0)+"mm"],["卷绕层数",R.total_winding_layers+"层"],["卷芯直径",R.core_diameter_mm.toFixed(2)+"mm"],["孔隙率 正/负",R.pos_coating_porosity.toFixed(1)+"/"+R.neg_coating_porosity.toFixed(1)+"%"],["体积能量密度",R.volumetric_energy_Wh_L+"Wh/L"]].forEach(x=>h+=`<div class="ri"><div class="v">${x[1]}</div><div class="l">${x[0]}</div></div>`);
+  [["容量",R.target_capacity_mAh+"mAh"],["N/P",R.actual_np_ratio.toFixed(3)],["正极长度",R.pos_coating_length_mm.toFixed(0)+"mm"],["负极长度",R.neg_coating_length_mm.toFixed(0)+"mm"],["层数",R.total_winding_layers+"层"],["卷芯D",R.core_diameter_mm+"mm"],["孔隙正/负",R.pos_coating_porosity+"/"+R.neg_coating_porosity+"%"],["体积密度",R.volumetric_energy_Wh_L+"Wh/L"]].forEach(x=>h+=`<div class="ri"><div class="v">${x[1]}</div><div class="l">${x[0]}</div></div>`);
   h+=`</div><div class="c"><h3>正极</h3><table class="tbl">`;
   [["涂层真密度",R.pos_coating_true_density_g_cm3,"g/cm³"],["压实密度",R.pos_coating_pressed_density_g_cm3,"g/cm³"],["孔隙率",R.pos_coating_porosity,"%"],["面容量",R.pos_areal_capacity_mAh_cm2,"mAh/cm²"],["涂层厚度",R.pos_coating_thickness_actual_um.toFixed(1),"µm"],["总厚度",R.pos_total_thickness_um.toFixed(1),"µm"],["涂布面积",R.pos_coating_area_cm2.toFixed(1),"cm²"],["涂布长度",R.pos_coating_length_mm.toFixed(0),"mm"],["活性质量",R.pos_active_weight_g,"g"],["涂层质量",R.pos_coating_weight_g,"g"],["Al箔",R.pos_foil_weight_g,"g"],["总质量",R.pos_total_weight_g,"g"],["容量",R.pos_capacity_mAh,"mAh"]].forEach(x=>h+=`<tr><td>${x[0]}</td><td>${x[1]}</td><td style="font-size:10px;color:#8E8E93">${x[2]}</td></tr>`);
   h+=`</table></div><div class="c"><h3>负极</h3><table class="tbl">`;
   [["涂层真密度",R.neg_coating_true_density_g_cm3,"g/cm³"],["压实密度",R.neg_coating_pressed_density_g_cm3,"g/cm³"],["孔隙率",R.neg_coating_porosity,"%"],["面容量",R.neg_areal_capacity_mAh_cm2,"mAh/cm²"],["涂层厚度",R.neg_coating_thickness_actual_um.toFixed(1),"µm"],["总厚度",R.neg_total_thickness_um.toFixed(1),"µm"],["宽度",R.neg_width_mm,"mm"],["涂布面积",R.neg_coating_area_cm2.toFixed(1),"cm²"],["涂布长度",R.neg_coating_length_mm.toFixed(0),"mm"],["活性质量",R.neg_active_weight_g,"g"],["涂层质量",R.neg_coating_weight_g,"g"],["Cu箔",R.neg_foil_weight_g,"g"],["总质量",R.neg_total_weight_g,"g"],["容量",R.neg_capacity_mAh,"mAh"],["N/P(容量)",R.actual_np_ratio.toFixed(4),""],["N/P(面密度)",R.areal_np_ratio.toFixed(4),""]].forEach(x=>h+=`<tr><td>${x[0]}</td><td>${x[1]}</td><td style="font-size:10px;color:#8E8E93">${x[2]}</td></tr>`);
-  h+=`</table></div><div class="c"><h3>隔膜·电解液·汇总</h3><table class="tbl">`;
-  [["隔膜质量",R.separator_weight_g,"g"],["单元总厚",R.unit_thickness_um.toFixed(1),"µm"],["卷芯D/D100%",R.core_diameter_mm.toFixed(2)+"/"+R.core_diameter_soc100_mm.toFixed(2),"mm"],["裕量",R.diameter_margin_mm.toFixed(3),"mm"],["总孔隙",R.total_pore_volume_cm3.toFixed(3),"cm³"],["注液量",R.electrolyte_volume_cm3.toFixed(2),"cm³"],["电解液质量",R.electrolyte_weight_g.toFixed(2),"g"],["壳体",R.case_weight_g,"g"],["电芯总质量",R.total_cell_weight_g+"g",""],["能量",R.cell_energy_Wh,"Wh"],["质量能量密度",R.gravimetric_energy_Wh_kg+"Wh/kg",""],["体积能量密度",R.volumetric_energy_Wh_L+"Wh/L",""]].forEach(x=>h+=`<tr><td>${x[0]}</td><td style="font-weight:700">${x[1]}</td><td style="font-size:10px;color:#8E8E93">${x[2]}</td></tr>`);
+  h+=`</table></div><div class="c"><h3>汇总</h3><table class="tbl">`;
+  [["隔膜质量",R.separator_weight_g,"g"],["单元总厚",R.unit_thickness_um,"µm"],["卷芯D/SOC100%",R.core_diameter_mm+"/"+R.core_diameter_soc100_mm,"mm"],["裕量",R.diameter_margin_mm,"mm"],["注液量",R.electrolyte_volume_cm3,"cm³"],["电解液",R.electrolyte_weight_g,"g"],["壳体",R.case_weight_g,"g"],["电芯总质量",R.total_cell_weight_g+"g",""],["能量",R.cell_energy_Wh,"Wh"],["质量能量密度",R.gravimetric_energy_Wh_kg+"Wh/kg",""],["体积能量密度",R.volumetric_energy_Wh_L+"Wh/L",""]].forEach(x=>h+=`<tr><td>${x[0]}</td><td style="font-weight:700">${x[1]}</td><td style="font-size:10px;color:#8E8E93">${x[2]}</td></tr>`);
   h+=`</table></div>`;
-  if(R.warnings&&R.warnings.length)h+=R.warnings.map(w=>`<div class="ng">⚠️ ${w}</div>`).join('');
-  h+=R.is_core_fit&&R.is_np_safe?`<div class="ok">✅ 入壳成功 · N/P安全 · 裕量${R.diameter_margin_mm.toFixed(2)}mm</div>`:(!R.is_core_fit?`<div class="ng">⛔ 入壳失败</div>`:`<div class="ng">⛔ N/P异常</div>`);
+  h+=R.is_core_fit&&R.is_np_safe?`<div class="ok">✅ 入壳成功 · N/P安全 · 裕量${R.diameter_margin_mm}mm</div>`:(!R.is_core_fit?`<div class="ng">⛔ 入壳失败</div>`:`<div class="ng">⛔ N/P异常</div>`);
+  if(R.warnings&&R.warnings.length)R.warnings.forEach(w=>h+=`<div class="ng">⚠️ ${w}</div>`);
   document.getElementById('rc').innerHTML=h;
 }
-
 function draw(){
   if(!R)return;let cv=document.getElementById('cv'),ctx=cv.getContext('2d');cv.width=360;cv.height=400;
-  let cx=180,cy=200,sc=120,sr=sc,cr=sc*(R.core_diameter_mm/2)/(CELLS[document.getElementById('cell').value].iD/2),mr=sc*(V('md')/2)/(CELLS[document.getElementById('cell').value].iD/2);
+  let cx=180,cy=200,sc=120,sr=sc,cr=sc*(parseFloat(R.core_diameter_mm)/2)/(CS[document.getElementById('cell').value].iD/2),mr=sc*(V('md')/2)/(CS[document.getElementById('cell').value].iD/2);
   ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx-100,cy,sr,0,Math.PI*2);ctx.stroke();
   ctx.fillStyle='#8E8E93';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText('钢壳',cx-100,cy-sr-8);
   ctx.strokeStyle=R.is_core_fit?'#34C759':'#FF3B30';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx-100,cy,cr,0,Math.PI*2);ctx.stroke();
@@ -153,9 +137,8 @@ function draw(){
   ctx.strokeStyle='#C7C7CC';ctx.lineWidth=3;ctx.strokeRect(cx+60,cy-sr,sr*2-30,sr*2);
   let vr=R.is_core_fit?sr*0.88:sr*1.15;ctx.strokeStyle=R.is_core_fit?'#34C759':'#FF3B30';ctx.lineWidth=R.is_core_fit?2:3;
   ctx.beginPath();ctx.arc(cx+90,cy,vr,0,Math.PI*2);ctx.stroke();
-  document.getElementById('vl').textContent=R.is_core_fit?`裕量 ${R.diameter_margin_mm.toFixed(2)}mm`:'SOC100%膨胀超限';
+  document.getElementById('vl').textContent=R.is_core_fit?`裕量 ${R.diameter_margin_mm}mm`:'SOC100%膨胀超限';
 }
-onCell();loadMat();
-</script>
-</body>
-</html>
+onCell();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
