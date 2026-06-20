@@ -35,7 +35,7 @@ canvas{width:100%;max-width:360px;display:block;margin:6px auto}
 <div class="rw"><label>型号</label><select id="cell" onchange="onCell()"><option>18650</option><option>21700</option><option>4680</option><option>33140</option></select></div>
 <div class="rw"><label>目标容量</label><input id="cap" type="number" value="3000"><span class="u">mAh</span></div>
 <div class="rw"><label>正极</label><select id="pMat"><option>NCM811</option><option>NCA</option><option>NCM622</option><option>NCM523</option><option>LFP</option><option>LMFP</option><option>LCO</option></select></div>
-<div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si(96.5/3.5)</option><option>硅碳(SiC)</option><option>硅氧(SiOx)</option></select></div>
+<div class="rw"><label>负极</label><select id="nMat"><option>天然石墨</option><option>人造石墨</option><option>石墨+Si (96.5/3.5)</option><option>硅碳 (SiC)</option><option>硅氧 (SiOx)</option><option>软碳</option></select></div>
 <button class="btn btn-s" onclick="load()">🔄 加载材料参数</button></div>
 <div class="c"><h3>正极参数</h3>
 <div class="rw"><label>克容量</label><input id="pCap" type="number" value="182"><span class="u">mAh/g</span></div>
@@ -59,7 +59,7 @@ canvas{width:100%;max-width:360px;display:block;margin:6px auto}
 <div class="rw"><label>注液系数</label><input id="eF" type="number" value="1.20" step="0.01"><span class="u">×</span></div></div>
 <div class="c"><h3>掺杂</h3>
 <div class="chk"><input type="checkbox" id="pbOn"><span>正极掺杂</span><select id="pbMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" style="width:40px"><span>%</span></div>
-<div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" style="width:40px"><span>%</span></div></div>
+<div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳 (SiC)</option><option>硅氧 (SiOx)</option><option>石墨+Si (96.5/3.5)</option><option>软碳</option></select><input id="nbR" type="number" value="95" style="width:40px"><span>%</span></div></div>
 <button class="btn btn-p" onclick="calc()">⚡ 开始计算</button></div>
 
 <div id="r" class="pg"><div id="rc"><p style="text-align:center;color:#8E8E93;padding:40px">← 输入参数后点击计算</p></div></div>
@@ -78,13 +78,16 @@ function bld(a,b,r){if(!a||!b)return a;let o={};for(let k in a)o[k]=(typeof a[k]
 
 function load(){
   if(!ready()){setTimeout(load,300);return}
-  let nm=NM[document.getElementById('nMat').value],n=nm;
+  let nk=document.getElementById('nMat').value.trim();
+  let nm=NM[nk],n=nm;
+  if(!nm){for(let k in NM){if(k.replace(/\s+/g,'')===nk.replace(/\s+/g,'')){nm=NM[k];n=nm;break}}}
   let nbOn=document.getElementById('nbOn').checked;
-  if(nbOn){let bm=NM[document.getElementById('nbMat').value];let r=V('nbR')/100;if(nm&&bm)n=bld(nm,bm,r)}
+  if(nbOn){let bk=document.getElementById('nbMat').value.trim();let bm=NM[bk];if(!bm){for(let k in NM){if(k.replace(/\s+/g,'')===bk.replace(/\s+/g,'')){bm=NM[k];break}}}let rt=V('nbR')/100;if(nm&&bm)n=bld(nm,bm,rt)}
   if(n){document.getElementById('nCap').value=Math.round(n.reversible_capacity_mAh_g*10)/10;document.getElementById('nAf').value=n.active_fraction;let ad=n.ad_density_range_mg_cm2||n.ad_range;document.getElementById('nAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('nPd').value=n.pressed_density_g_cm3||n.pd}
-  let pm=PM[document.getElementById('pMat').value],p=pm;
+  let pk=document.getElementById('pMat').value.trim();
+  let pm=PM[pk],p=pm;if(!pm){for(let k in PM){if(k.replace(/\s+/g,'')===pk.replace(/\s+/g,'')){pm=PM[k];p=pm;break}}}
   let pbOn=document.getElementById('pbOn').checked;
-  if(pbOn){let bm=PM[document.getElementById('pbMat').value];let r=V('pbR')/100;if(pm&&bm)p=bld(pm,bm,r)}
+  if(pbOn){let bk=document.getElementById('pbMat').value.trim();let bm=PM[bk];if(!bm){for(let k in PM){if(k.replace(/\s+/g,'')===bk.replace(/\s+/g,'')){bm=PM[k];break}}}let rt=V('pbR')/100;if(pm&&bm)p=bld(pm,bm,rt)}
   if(p){document.getElementById('pCap').value=Math.round(p.reversible_capacity_mAh_g*10)/10;document.getElementById('pAf').value=p.active_fraction;let ad=p.ad_density_range_mg_cm2||p.ad_range;document.getElementById('pAd').value=Math.round((ad[0]+ad[1])/2);document.getElementById('pPd').value=p.pressed_density_g_cm3||p.pd}
   var btn=document.querySelector('.btn-s');if(btn){btn.textContent='✅ 参数已加载';btn.style.background='#34C759';setTimeout(function(){btn.textContent='🔄 加载材料参数';btn.style.background='#34C759'},1500)}
 }
