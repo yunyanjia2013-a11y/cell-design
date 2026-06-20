@@ -88,8 +88,8 @@ canvas{width:100%;max-width:360px;display:block;margin:6px auto}
   </div>
   <div class="c">
     <h3>掺杂混合 (可选)</h3>
-    <div class="chk"><input type="checkbox" id="pbOn"><span>正极掺杂</span><select id="pbMat"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" min="0" max="100" style="width:45px"><span>%主材</span></div>
-    <div class="chk"><input type="checkbox" id="nbOn"><span>负极掺杂</span><select id="nbMat"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" min="0" max="100" style="width:45px"><span>%主材</span></div>
+    <div class="chk"><input type="checkbox" id="pbOn" onchange="loadMat()"><span>正极掺杂</span><select id="pbMat" onchange="loadMat()"><option>NCM523</option><option>NCM811</option><option>NCA</option><option>LMFP</option></select><input id="pbR" type="number" value="80" min="0" max="100" style="width:45px" oninput="loadMat()"><span>%主材</span></div>
+    <div class="chk"><input type="checkbox" id="nbOn" onchange="loadMat()"><span>负极掺杂</span><select id="nbMat" onchange="loadMat()"><option>硅碳(SiC)</option><option>硅氧(SiOx)</option><option>石墨+Si(96.5/3.5)</option></select><input id="nbR" type="number" value="95" min="0" max="100" style="width:45px" oninput="loadMat()"><span>%主材</span></div>
   </div>
   <button class="btn" onclick="calc()">⚡ 开始计算</button>
 </div>
@@ -131,8 +131,17 @@ function T(t){
 }
 function loadMat(){
   let p=PM[document.getElementById('pMat').value];
+  if(document.getElementById('pbOn').checked){
+    let pm=PM[document.getElementById('pMat').value],bm=PM[document.getElementById('pbMat').value];
+    if(pm&&bm){let r=V('pbR')/100;p=blend(pm,bm,r);}
+  }
   if(p){document.getElementById('pCap').value=p.cap;document.getElementById('pAf').value=p.af;document.getElementById('pAd').value=(p.ad[0]+p.ad[1])/2;document.getElementById('pPd').value=p.pd;}
+
   let n=NM[document.getElementById('nMat').value];
+  if(document.getElementById('nbOn').checked){
+    let nm=NM[document.getElementById('nMat').value],bm=NM[document.getElementById('nbMat').value];
+    if(nm&&bm){let r=V('nbR')/100;n=blend(nm,bm,r);}
+  }
   if(n){document.getElementById('nCap').value=n.cap;document.getElementById('nAf').value=n.af;document.getElementById('nAd').value=(n.ad[0]+n.ad[1])/2;document.getElementById('nPd').value=n.pd;document.getElementById('nExp').value=n.exp;}
 }
 function onCell(){
