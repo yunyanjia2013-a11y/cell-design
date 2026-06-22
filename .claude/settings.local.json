@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import struct; print\\(f'Python arch: {struct.calcsize\\('P'\\)*8}bit'\\)\")",
+      "Bash(python *)",
+      "Bash(pyinstaller --version)",
+      "Bash(where python *)",
+      "Read(//c/Program Files/**)",
+      "Bash(reg query *)",
+      "Read(//c/Users/__TRACKED_VAR__/AppData/Local/**)",
+      "Bash(curl -L -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64.zip\" \"https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip\")",
+      "Bash(unzip -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64.zip\" -d \"C:/Users/JYY_2/desktop/electrode_design/py_x64\")",
+      "Bash(curl -L -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64-installer.exe\" \"https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe\")",
+      "Bash(\"C:/Users/JYY_2/desktop/electrode_design/python-x64-installer.exe\" /quiet InstallAllUsers=0 TargetDir=\"C:\\\\Users\\\\JYY_2\\\\desktop\\\\electrode_design\\\\python-x64-full\" Include_test=0 Include_tcltk=1 pip=1)",
+      "PowerShell(winget list *)",
+      "Bash(curl -L -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64-nuget.zip\" \"https://www.nuget.org/api/v2/package/python/3.12.10\")",
+      "Bash(unzip -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64-nuget.zip\" -d \"C:/Users/JYY_2/desktop/electrode_design/py64_nuget\")",
+      "Bash(curl -L -o \"C:/Users/JYY_2/desktop/electrode_design/winpython-x64.exe\" \"https://github.com/winpython/winpython/releases/download/11.2.20250523/Winpython64-3.12.10.0dot.exe\")",
+      "Bash(where 7z)",
+      "Bash(where 7za)",
+      "WebFetch(domain:www.python.org)",
+      "Bash(curl -L -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64-full.zip\" \"https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.zip\")",
+      "Bash(unzip -o \"C:/Users/JYY_2/desktop/electrode_design/python-x64-full.zip\" -d \"C:/Users/JYY_2/desktop/electrode_design/py_x64_full\")",
+      "Bash($PY64/python.exe *)",
+      "Bash(C:/Users/JYY_2/desktop/electrode_design/py_x64_full/python.exe -m pip install pyinstaller openpyxl numpy -q)",
+      "Bash(rm -rf build dist)",
+      "Bash(\"C:/Users/JYY_2/desktop/electrode_design/py_x64_full/python.exe\" -m PyInstaller --clean --name \"Electrode_Design\" --onefile --windowed --add-data \"core;core\" --hidden-import \"core.electrode_calc\" --hidden-import \"core.material_db\" --hidden-import \"openpyxl\" --noupx main.py)",
+      "Bash(unzip *)",
+      "Bash(zip -r ../cell-design-pwa.zip icons/icon-192.png icons/icon-512.png index.html manifest.json sw.js)"
+    ]
+  }
+}
