@@ -1,0 +1,14 @@
+{
+  "name": "电芯设计 v4.0",
+  "short_name": "电芯设计",
+  "description": "18650/21700/4680/33140 圆柱锂电池全参数设计计算器 — 阿基米德螺线·SOC100%膨胀·辅件质量",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F2F7",
+  "theme_color": "#007AFF",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
