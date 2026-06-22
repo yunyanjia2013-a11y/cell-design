@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cell-design-api
+    runtime: python
+    buildCommand: pip install -r webapp/requirements.txt
+    startCommand: cd webapp && python app.py
+    plan: free
